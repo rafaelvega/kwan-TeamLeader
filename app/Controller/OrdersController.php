@@ -7,14 +7,19 @@ class OrdersController extends AppController {
 	
 	public $components = array('RequestHandler');
 	
+	/*Method for read the json of products*/
 	public function readProducts(){
 		$this->products = json_decode(file_get_contents("../../data/products.json"));
 	}
 
+	/*Method for read the json of customers*/
 	public function readCustomers(){
 		$this->customers = json_decode(file_get_contents("../../data/customers.json"));
 	}
 	
+	/*Function to get the renevue of a customer
+		params: $id -> id of the customer
+	*/
 	public function getCustomerRevenue($id){
 		foreach($this->customers as $customer){
 			if($customer->id==$id){
@@ -25,6 +30,9 @@ class OrdersController extends AppController {
 		return 0;
 	}
 	
+	/*Function to get a producto by their id
+		params: $id -> id of the product to return
+	*/
 	public function getProductById($id){
 		foreach($this->products as $product){
 			if($product->id==$id){
@@ -33,15 +41,12 @@ class OrdersController extends AppController {
 		}
 		return false;
 	}
-	
-	public function getSubTotalOrderBeforeDiscounts($order){
-		$subTotal = 0;
-		foreach($order->items as $item){
-			$subTotal+=$item->total;
-		}
-		return $subTotal;
-	}
-	
+
+	/*Function to get a cheappes product of a category
+		params: $order -> array list of element of the order
+				$category -> category id to match with products
+				$minCount -> minimum amount of products to find
+	*/
 	public function getCheapestProductOfCategoryIfMoreThanX($order,$category,$minCount){
 		$count = 0;
 		$cheapestProduct=false;
@@ -62,6 +67,11 @@ class OrdersController extends AppController {
 		else return false;
 	}
 	
+	/*Function to get a list of products of an especify category
+		params: $order -> array list of element of the order
+				$category -> category id to match with products
+				$minCount -> minimum amount of products to find
+	*/
 	public function getProductsOfCategoryIfMoreThanX($order,$category,$minCount){
 
 		$products=array();
@@ -76,6 +86,8 @@ class OrdersController extends AppController {
 		return $products;
 	}
 
+	/*API Function to get an order discounts
+	*/
 	public function discount() {
 		$this->autoRender = false;
 		
