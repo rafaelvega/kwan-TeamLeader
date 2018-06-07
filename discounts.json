@@ -1,0 +1,22 @@
+{
+	"renevueByUser": [
+	    {
+	      "amount": 1000,
+	      "porcentageToDiscount": 10
+	    }
+	],
+	"cheapestOfCategory": [
+	    {
+			"category" : 1,
+	      	"products": 2,
+	      	"porcentageToDiscount": 20
+	    }
+	],
+	"takeXPayY": [
+	    {
+			"category" : 2,
+	      	"products": 5,
+	      	"itemsToDiscount": 1
+	    }
+	]
+}
